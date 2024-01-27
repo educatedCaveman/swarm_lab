@@ -3,7 +3,7 @@
   hosts:
     - vespae_LB
   vars:
-    - jenkins_path: "/var/lib/jenkins/workspace/swarm_lab_master"
+    - jenkins_path: "/var/lib/jenkins/workspace/Swarm_Lab_master"
   tasks:
 
     - name: Ensure Nginx config folder exists
