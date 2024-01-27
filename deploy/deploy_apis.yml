@@ -1,0 +1,31 @@
+# configure Docker Swarm Cluster (PRD)
+- name: configure Docker Swarm Cluster (PRD)
+  hosts:
+    - apis_LB
+  vars:
+    - jenkins_path: "/var/lib/jenkins/workspace/Swarm_Lab_master"
+  tasks:
+
+    - name: Ensure Nginx config folder exists
+      ansible.builtin.file:
+        path: /etc/nginx/swarm_sites
+        state:  directory
+
+    - name: install the custom nginx.conf
+      ansible.builtin.copy:
+        src:  "{{ jenkins_path }}/nginx/nginx.conf"
+        dest: /etc/nginx/nginx.conf
+
+    - name: create swarm_sites folder with configs
+      ansible.builtin.copy:
+        src:  "{{ jenkins_path }}/nginx/PRD_swarm_sites/"
+        dest: /etc/nginx/swarm_sites/
+
+    - name: restart nginx & related services
+      systemd:
+        name:     "{{ item }}.service"
+        state:    restarted
+        enabled:  yes
+      loop:
+        - nginx
+
