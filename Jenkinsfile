@@ -14,46 +14,25 @@ pipeline {
     triggers { cron('0 3 * * 5') }
 
     stages {
-        // deploy code to lv-426.lab, when the branch is 'dev_test'
+        // deploy code to DEV, when the branch is 'dev_test'
         stage('deploy dev code') {
-            // when { branch 'dev_test' }
-            when { branch 'master' }
+            when { branch 'dev_test' }
             steps {
                 // deploy configs to DEV
                 echo 'deploy docker config files (DEV)'
                 sh 'ansible-playbook ${SWARM_REPO}/deploy/deploy_vespae.yml'
             }
         }
-        // // trigger portainer redeploy
-        // // separated out so this only gets run if the ansible playbook doesn't fail
-        // stage('redeploy portainer stack (DEV)') {
-        //     when { branch 'dev_test' }
-        //     steps {
-        //         // deploy configs to DEV
-        //         echo 'Redeploy DEV stack'
-        //         sh 'http post ${PORTAINER_DEV_WEBHOOK}'
-        //     }
-        // }
 
-        // // deploy code to sevastopol, when the branch is 'master'
-        // stage('deploy prd code') {
-        //     when { branch 'master' }
-        //     steps {
-        //         // deploy configs to PRD
-        //         echo 'deploy docker config files (PRD)'
-        //         sh 'ansible-playbook ${ANSIBLE_REPO}/deploy/docker/deploy_docker_compose_prd.yml --extra-vars repo="privateer"'
-        //     }
-        // }
-        // // trigger portainer redeploy
-        // // separated out so this only gets run if the ansible playbook doesn't fail
-        // stage('redeploy portainer stack (PRD)') {
-        //     when { branch 'master' }
-        //     steps {
-        //         // deploy configs to DEV
-        //         echo 'Redeploy PRD stack'
-        //         sh 'http post ${PORTAINER_PRD_WEBHOOK}'
-        //     }
-        // }
+        // deploy code to PRD, when the branch is 'master'
+        stage('deploy dev code') {
+            when { branch 'master' }
+            steps {
+                // deploy configs to PRD
+                echo 'deploy docker config files (PRD)'
+                sh 'ansible-playbook ${SWARM_REPO}/deploy/deploy_apis.yml'
+            }
+        }
 
     }
     post {

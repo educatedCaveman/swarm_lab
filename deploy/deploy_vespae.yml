@@ -13,12 +13,12 @@
 
     - name: install the custom nginx.conf
       ansible.builtin.copy:
-        src:  "{{ jenkins_path }}/nginx/DEV/nginx.conf"
+        src:  "{{ jenkins_path }}/nginx/nginx.conf"
         dest: /etc/nginx/nginx.conf
 
     - name: create swarm_sites folder with configs
       ansible.builtin.copy:
-        src:  "{{ jenkins_path }}/nginx/DEV/swarm_sites/"
+        src:  "{{ jenkins_path }}/nginx/DEV_swarm_sites/"
         dest: /etc/nginx/swarm_sites/
 
     - name: restart nginx & related services
