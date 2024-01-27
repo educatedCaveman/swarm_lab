@@ -44,6 +44,6 @@
     - name: deploy the code
       ansible.builtin.git:
         repo:     "https://github.com/educatedCaveman/swarm_lab"
-        dest:     /mnt/docker/DEV/
-        version:  dev_test
+        dest:     /mnt/docker/PRD/
+        version:  master
         force:    true

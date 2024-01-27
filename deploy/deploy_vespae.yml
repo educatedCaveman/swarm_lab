@@ -29,3 +29,21 @@
       loop:
         - nginx
 
+- name: Deploy the code and all required infrastructure
+  hosts:
+    - swarm_data
+  tasks:
+
+    # - name: create any required directories
+    #   ansible.builtin.file:
+    #     path:   "{{ item }}"
+    #     state:  directory
+    #   loop:
+    #     - tbd
+
+    - name: deploy the code
+      ansible.builtin.git:
+        repo:     "https://github.com/educatedCaveman/swarm_lab"
+        dest:     /mnt/docker/DEV/
+        version:  dev_test
+        force:    true
