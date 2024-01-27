@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         ANSIBLE_REPO = '/var/lib/jenkins/workspace/ansible_master'
-        SWARM_REPO = '/var/lib/jenkins/workspace/swarm_lab_master'
+        SWARM_REPO = '/var/lib/jenkins/workspace/Swarm_Lab_master'
         WEBHOOK = credentials('JENKINS_DISCORD')
         // PORTAINER_DEV_WEBHOOK = credentials('PORTAINER_WEBHOOK_DEV_PRIVATEER')
         // PORTAINER_PRD_WEBHOOK = credentials('PORTAINER_WEBHOOK_PRD_PRIVATEER')
