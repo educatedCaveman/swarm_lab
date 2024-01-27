@@ -18,10 +18,8 @@
 
     - name: create swarm_sites folder with configs
       ansible.builtin.copy:
-        src:  "{{ jenkins_path }}/nginx/DEV_swarm_sites/nginx_{{ item }}.conf"
-        dest: "/etc/nginx/swarm_sites/nginx_{{ item }}.conf"
-      loop:
-        - homer
+        src:  "{{ jenkins_path }}/nginx/DEV_swarm_sites/"
+        dest: "/etc/nginx/swarm_sites/"
 
     - name: restart nginx & related services
       systemd:
