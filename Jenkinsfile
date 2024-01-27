@@ -4,7 +4,7 @@ pipeline {
     environment {
         ANSIBLE_REPO = '/var/lib/jenkins/workspace/ansible_master'
         PRD_REPO = '/var/lib/jenkins/workspace/Swarm_Lab_master'
-        DEV_REPO = '/var/lib/jenkins/workspace/Swarm_Lab_master'
+        DEV_REPO = '/var/lib/jenkins/workspace/Swarm_Lab_dev_test'
         WEBHOOK = credentials('JENKINS_DISCORD')
         // PORTAINER_DEV_WEBHOOK = credentials('PORTAINER_WEBHOOK_DEV_PRIVATEER')
         // PORTAINER_PRD_WEBHOOK = credentials('PORTAINER_WEBHOOK_PRD_PRIVATEER')
@@ -21,7 +21,7 @@ pipeline {
             steps {
                 // deploy configs to DEV
                 echo 'deploy docker config files (DEV)'
-                sh 'ansible-playbook ${PRD_REPO}/deploy/deploy_vespae.yml'
+                sh 'ansible-playbook ${DEV_REPO}/deploy/deploy_vespae.yml'
             }
         }
 
@@ -31,7 +31,7 @@ pipeline {
             steps {
                 // deploy configs to PRD
                 echo 'deploy docker config files (PRD)'
-                sh 'ansible-playbook ${DEV_REPO}/deploy/deploy_apis.yml'
+                sh 'ansible-playbook ${PRD_REPO}/deploy/deploy_apis.yml'
             }
         }
 
