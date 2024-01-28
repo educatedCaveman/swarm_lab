@@ -16,10 +16,30 @@
         src:  "{{ jenkins_path }}/nginx/nginx.conf"
         dest: /etc/nginx/nginx.conf
 
-    - name: create swarm_sites folder with configs
+    # - name: create swarm_sites folder with configs
+    #   ansible.builtin.copy:
+    #     src:  "{{ jenkins_path }}/nginx/DEV_swarm_sites/"
+    #     dest: "/etc/nginx/swarm_sites/"
+
+    - name: install the custom portainer LB config
       ansible.builtin.copy:
-        src:  "{{ jenkins_path }}/nginx/DEV_swarm_sites/"
-        dest: "/etc/nginx/swarm_sites/"
+        src:  "{{ jenkins_path }}/nginx/DEV/portainer_LB.conf"
+        dest: /etc/nginx/portainer_LB.conf
+
+    - name: install the stack LB configs into sites-available
+      ansible.builtin.copy:
+        src:  "{{ jenkins_path }}/nginx/DEV/nginx_{{ item }}.conf"
+        dest: "/etc/nginx/sites-available/nginx_{{ item }}.conf"
+      loop:
+        - "homer"
+
+    - name: enable stacks from sites-available
+      ansible.builtin.file:
+        src:    "/etc/nginx/sites-available/nginx_{{ item }}.conf"
+        dest:   "/etc/nginx/sites-enabled/nginx_{{ item }}.conf"
+        state:  link
+      loop:
+        - "homer"
 
     - name: restart nginx & related services
       systemd:
