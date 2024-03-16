@@ -151,7 +151,7 @@ services:
 
       - name: "Mainsail (Cam)"
         logo: "assets/mainsail.png"
-        url:  "https://mainsail.drak3.io/webcam2/?action=webcam"
+        url:  "https://mainsail.drak3.io/webcam2/?action=stream"
         target: "_blank"
 
   - name: "Media Services"
