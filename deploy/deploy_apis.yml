@@ -11,6 +11,13 @@
         path: /etc/nginx/swarm_sites
         state:  directory
 
+    - name: copy swarm site configs
+      ansible.builtin.copy:
+        src:  "{{ jenkins_path }}/nginx/PRD/{{ item }}.conf"
+        dest: "/etc/nginx/swarm_sites/{{ item }}.conf"
+      loop:
+        - homer
+
     - name: install the custom nginx.conf
       ansible.builtin.copy:
         src:  "{{ jenkins_path }}/nginx/nginx.conf"
