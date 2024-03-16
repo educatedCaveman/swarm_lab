@@ -23,10 +23,10 @@
         src:  "{{ jenkins_path }}/nginx/nginx.conf"
         dest: /etc/nginx/nginx.conf
 
-    - name: create swarm_sites folder with configs
+    - name: install the swarm sites config
       ansible.builtin.copy:
-        src:  "{{ jenkins_path }}/nginx/PRD_swarm_sites/"
-        dest: /etc/nginx/swarm_sites/
+        src:  "{{ jenkins_path }}/nginx/apis.conf"
+        dest: /etc/nginx/swarm_sites.conf
 
     - name: restart nginx & related services
       systemd:
