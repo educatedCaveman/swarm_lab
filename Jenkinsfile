@@ -6,8 +6,8 @@ pipeline {
         PRD_REPO = '/var/lib/jenkins/workspace/Swarm_Lab_master'
         DEV_REPO = '/var/lib/jenkins/workspace/Swarm_Lab_dev_test'
         WEBHOOK = credentials('JENKINS_DISCORD')
-        // PORTAINER_DEV_WEBHOOK = credentials('PORTAINER_WEBHOOK_DEV_PRIVATEER')
-        // PORTAINER_PRD_WEBHOOK = credentials('PORTAINER_WEBHOOK_PRD_PRIVATEER')
+        PORTAINER_DEV_WEBHOOK = credentials('PORTAINER_WEBHOOK_DEV_PRIVATEER')
+        PORTAINER_PRD_WEBHOOK = credentials('PORTAINER_WEBHOOK_PRD_PRIVATEER')
     }
 
     //triggering periodically so the code is always present
@@ -22,6 +22,7 @@ pipeline {
                 // deploy configs to DEV
                 echo 'deploy docker config files (DEV)'
                 sh 'ansible-playbook ${DEV_REPO}/deploy/deploy_vespae.yml'
+                sh 'http post ${PORTAINER_DEV_WEBHOOK}'
             }
         }
 
@@ -32,6 +33,7 @@ pipeline {
                 // deploy configs to PRD
                 echo 'deploy docker config files (PRD)'
                 sh 'ansible-playbook ${PRD_REPO}/deploy/deploy_apis.yml'
+                sh 'http post ${PORTAINER_PRD_WEBHOOK}'
             }
         }
 
