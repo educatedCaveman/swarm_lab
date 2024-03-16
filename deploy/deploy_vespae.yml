@@ -14,7 +14,7 @@
 
     - name: copy swarm site configs
       ansible.builtin.copy:
-        src:  "{{ jenkins_path }}/DEV/{{ item }}.conf"
+        src:  "{{ jenkins_path }}/nginx/DEV/{{ item }}.conf"
         dest: "/etc/nginx/swarm_sites/{{ item }}.conf"
       loop:
         - homer
