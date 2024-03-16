@@ -144,9 +144,14 @@ services:
         url:  "http://192.168.1.10"
         target: "_blank"
 
-      - name: "Fluidd"
-        logo: "assets/fluidd.png"
-        url:  "https://fluidd.drak3.io"
+      - name: "Mainsail"
+        logo: "assets/mainsail.png"
+        url:  "https://mainsail.drak3.io"
+        target: "_blank"
+
+      - name: "Mainsail (Cam)"
+        logo: "assets/mainsail.png"
+        url:  "https://mainsail.drak3.io/webcam2/?action=snapshot"
         target: "_blank"
 
   - name: "Media Services"
